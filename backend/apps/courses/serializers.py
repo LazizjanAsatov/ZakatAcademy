@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Course, Module, Lesson, Enrollment, LessonProgress
+from .models import Course, Module, Lesson, Enrollment, LessonProgress, FAQ, SocialMediaLink, Statistics
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -96,4 +96,27 @@ class LessonProgressSerializer(serializers.ModelSerializer):
             }
         )
         return progress
+
+
+class FAQSerializer(serializers.ModelSerializer):
+    """FAQ serializer."""
+    class Meta:
+        model = FAQ
+        fields = ('id', 'question', 'answer', 'order', 'created_at', 'updated_at')
+
+
+class SocialMediaLinkSerializer(serializers.ModelSerializer):
+    """Social media link serializer."""
+    platform_display = serializers.CharField(source='get_platform_display', read_only=True)
+    
+    class Meta:
+        model = SocialMediaLink
+        fields = ('id', 'platform', 'platform_display', 'url', 'icon_class', 'order', 'is_active')
+
+
+class StatisticsSerializer(serializers.ModelSerializer):
+    """Statistics serializer."""
+    class Meta:
+        model = Statistics
+        fields = ('active_learners', 'courses', 'video_lessons')
 

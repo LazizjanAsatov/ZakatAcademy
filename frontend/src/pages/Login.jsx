@@ -30,23 +30,23 @@ const Login = () => {
   }
 
   return (
-    <div className="py-10 md:py-16">
-      <div className="max-w-md mx-auto px-4">
-        <div className="bg-za-ivory rounded-2xl shadow-sm border border-za-line p-8">
-          <h1 className="text-3xl font-heading font-bold text-za-ink mb-2">
+    <div className="py-10 sm:py-12 md:py-16 min-h-[calc(100vh-200px)] flex items-center">
+      <div className="max-w-md w-full mx-auto px-4 sm:px-6">
+        <div className="bg-za-ivory rounded-2xl shadow-soft border border-za-line p-6 sm:p-8">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-za-ink mb-2">
             Welcome Back
           </h1>
-          <p className="text-za-slate mb-8">
+          <p className="text-za-slate mb-6 sm:mb-8 text-sm sm:text-base">
             Sign in to continue your learning journey.
           </p>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-6 p-4 bg-za-error-light border border-za-error/30 rounded-lg text-za-error text-sm">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-za-ink mb-2">
                 Email
@@ -57,7 +57,7 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink"
+                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 placeholder="your@email.com"
               />
             </div>
@@ -72,7 +72,7 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink"
+                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 placeholder="••••••••"
               />
             </div>
@@ -80,7 +80,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-za-emerald text-white rounded-full hover:bg-za-forest transition font-semibold disabled:opacity-50"
+              className="w-full px-6 py-3 bg-za-emerald text-white rounded-full hover:bg-za-emerald-dark transition-all font-semibold disabled:opacity-50 shadow-md hover:shadow-lg disabled:shadow-md disabled:hover:shadow-md"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -88,7 +88,7 @@ const Login = () => {
 
           <div className="mt-6 text-center text-sm text-za-slate">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-za-emerald hover:underline font-medium">
+            <Link to="/signup" className="text-za-emerald hover:text-za-emerald-dark hover:underline font-medium transition-colors">
               Request Access
             </Link>
           </div>

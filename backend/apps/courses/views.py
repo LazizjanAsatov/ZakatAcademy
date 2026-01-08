@@ -4,10 +4,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-from .models import Course, Enrollment, LessonProgress
+from .models import Course, Enrollment, LessonProgress, FAQ, SocialMediaLink, Lesson, Statistics
 from .serializers import (
     CourseListSerializer, CourseDetailSerializer, CoursePlayerSerializer,
-    EnrollmentSerializer, LessonProgressSerializer
+    EnrollmentSerializer, LessonProgressSerializer, FAQSerializer, SocialMediaLinkSerializer,
+    StatisticsSerializer
 )
 
 User = get_user_model()
@@ -99,4 +100,31 @@ def update_lesson_progress(request, lesson_id):
         progress = serializer.save()
         return Response(LessonProgressSerializer(progress).data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def faq_list(request):
+    """Get list of published FAQs."""
+    faqs = FAQ.objects.filter(is_published=True)
+    serializer = FAQSerializer(faqs, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def social_media_links(request):
+    """Get list of active social media links."""
+    links = SocialMediaLink.objects.filter(is_active=True)
+    serializer = SocialMediaLinkSerializer(links, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def statistics(request):
+    """Get platform statistics from Statistics model."""
+    stats = Statistics.load()
+    serializer = StatisticsSerializer(stats)
+    return Response(serializer.data)
 

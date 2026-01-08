@@ -39,18 +39,18 @@ const Signup = () => {
 
   if (success) {
     return (
-      <div className="py-10 md:py-16">
-        <div className="max-w-md mx-auto px-4">
-          <div className="bg-za-ivory rounded-2xl shadow-sm border border-za-line p-8 text-center">
-            <div className="w-16 h-16 bg-za-emerald/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-za-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="py-10 sm:py-12 md:py-16 min-h-[calc(100vh-200px)] flex items-center">
+        <div className="max-w-md w-full mx-auto px-4 sm:px-6">
+          <div className="bg-za-ivory rounded-2xl shadow-soft border border-za-line p-6 sm:p-8 text-center">
+            <div className="w-16 h-16 bg-za-success-light rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-za-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-heading font-bold text-za-ink mb-2">
+            <h2 className="text-xl sm:text-2xl font-heading font-bold text-za-ink mb-2">
               Request Submitted!
             </h2>
-            <p className="text-za-slate">
+            <p className="text-za-slate text-sm sm:text-base">
               Your account request has been submitted. Redirecting...
             </p>
           </div>
@@ -60,24 +60,24 @@ const Signup = () => {
   }
 
   return (
-    <div className="py-10 md:py-16">
-      <div className="max-w-md mx-auto px-4">
-        <div className="bg-za-ivory rounded-2xl shadow-sm border border-za-line p-8">
-          <h1 className="text-3xl font-heading font-bold text-za-ink mb-2">
+    <div className="py-10 sm:py-12 md:py-16 min-h-[calc(100vh-200px)]">
+      <div className="max-w-md w-full mx-auto px-4 sm:px-6">
+        <div className="bg-za-ivory rounded-2xl shadow-soft border border-za-line p-6 sm:p-8">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-za-ink mb-2">
             Request Access
           </h1>
-          <p className="text-za-slate mb-8">
+          <p className="text-za-slate mb-6 sm:mb-8 text-sm sm:text-base">
             Sign up to request access to Zakat Academy courses. Your account will be reviewed by our admin team.
           </p>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-6 p-4 bg-za-error-light border border-za-error/30 rounded-lg text-za-error text-sm">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label htmlFor="first_name" className="block text-sm font-medium text-za-ink mb-2">
                   First Name
@@ -87,7 +87,7 @@ const Signup = () => {
                   id="first_name"
                   value={formData.first_name}
                   onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-                  className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink"
+                  className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 />
               </div>
               <div>
@@ -99,7 +99,7 @@ const Signup = () => {
                   id="last_name"
                   value={formData.last_name}
                   onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-                  className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink"
+                  className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 />
               </div>
             </div>
@@ -114,7 +114,7 @@ const Signup = () => {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink"
+                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 placeholder="your@email.com"
               />
             </div>
@@ -129,7 +129,7 @@ const Signup = () => {
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink"
+                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 placeholder="••••••••"
               />
             </div>
@@ -144,7 +144,7 @@ const Signup = () => {
                 required
                 value={formData.password_confirm}
                 onChange={(e) => setFormData({ ...formData, password_confirm: e.target.value })}
-                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink"
+                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 placeholder="••••••••"
               />
             </div>
@@ -152,7 +152,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-za-emerald text-white rounded-full hover:bg-za-forest transition font-semibold disabled:opacity-50"
+              className="w-full px-6 py-3 bg-za-emerald text-white rounded-full hover:bg-za-emerald-dark transition-all font-semibold disabled:opacity-50 shadow-md hover:shadow-lg disabled:shadow-md disabled:hover:shadow-md"
             >
               {loading ? 'Submitting...' : 'Request Access'}
             </button>
@@ -160,7 +160,7 @@ const Signup = () => {
 
           <div className="mt-6 text-center text-sm text-za-slate">
             Already have an account?{' '}
-            <Link to="/login" className="text-za-emerald hover:underline font-medium">
+            <Link to="/login" className="text-za-emerald hover:text-za-emerald-dark hover:underline font-medium transition-colors">
               Sign In
             </Link>
           </div>

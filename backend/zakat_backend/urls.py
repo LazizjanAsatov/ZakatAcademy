@@ -13,5 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('apps.users.urls')),
     path('api/', include('apps.courses.urls')),
+    path('api/', include('apps.blog.urls')),
+    path('api/', include('apps.about.urls')),
 ]
 

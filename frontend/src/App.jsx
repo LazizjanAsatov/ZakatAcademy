@@ -12,6 +12,11 @@ import CoursePlayer from './pages/CoursePlayer'
 import Profile from './pages/Profile'
 import ProtectedRoute from './components/ProtectedRoute'
 import PendingApproval from './pages/PendingApproval'
+import Blog from './pages/Blog'
+import BlogDetail from './pages/BlogDetail'
+import FAQ from './pages/FAQ'
+import About from './pages/About'
+import Events from './pages/Events'
 
 function App() {
   return (
@@ -24,6 +29,11 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:slug" element={<CourseDetail />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/events" element={<Events />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/pending-approval" element={<PendingApproval />} />

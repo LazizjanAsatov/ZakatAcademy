@@ -101,3 +101,81 @@ class LessonProgress(models.Model):
     def __str__(self):
         return f"{self.user.email} - {self.lesson.title} - {'Completed' if self.completed else 'In Progress'}"
 
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=300)
+    answer = models.TextField()
+    order = models.PositiveIntegerField(default=0, help_text="Order in which FAQ appears (lower numbers first)")
+    is_published = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order', 'created_at']
+        db_table = 'faqs'
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQs'
+
+    def __str__(self):
+        return self.question
+
+
+class SocialMediaLink(models.Model):
+    PLATFORM_CHOICES = [
+        ('facebook', 'Facebook'),
+        ('twitter', 'Twitter'),
+        ('instagram', 'Instagram'),
+        ('youtube', 'YouTube'),
+        ('linkedin', 'LinkedIn'),
+        ('tiktok', 'TikTok'),
+        ('whatsapp', 'WhatsApp'),
+        ('telegram', 'Telegram'),
+    ]
+
+    platform = models.CharField(max_length=50, choices=PLATFORM_CHOICES, unique=True)
+    url = models.URLField()
+    icon_class = models.CharField(max_length=100, blank=True, help_text="Optional: CSS class for custom icon")
+    order = models.PositiveIntegerField(default=0, help_text="Order in which link appears (lower numbers first)")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order', 'platform']
+        db_table = 'social_media_links'
+        verbose_name = 'Social Media Link'
+        verbose_name_plural = 'Social Media Links'
+
+    def __str__(self):
+        return f"{self.get_platform_display()}"
+
+
+class Statistics(models.Model):
+    """Statistics model for homepage display. Only one instance should exist."""
+    active_learners = models.PositiveIntegerField(default=0, help_text="Number of active learners to display")
+    courses = models.PositiveIntegerField(default=0, help_text="Number of courses to display")
+    video_lessons = models.PositiveIntegerField(default=0, help_text="Number of video lessons to display")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'statistics'
+        verbose_name = 'Statistics'
+        verbose_name_plural = 'Statistics'
+
+    def __str__(self):
+        return f"Statistics (Updated: {self.updated_at.strftime('%Y-%m-%d %H:%M')})"
+
+    def save(self, *args, **kwargs):
+        """Ensure only one statistics instance exists."""
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        """Get or create the singleton statistics instance."""
+        obj, created = cls.objects.get_or_create(pk=1, defaults={
+            'active_learners': 100,
+            'courses': 10,
+            'video_lessons': 50,
+        })
+        return obj

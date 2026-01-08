@@ -30,3 +30,8 @@ export const updateLessonProgress = async (lessonId, data) => {
   return response.data
 }
 
+export const getStatistics = async () => {
+  const response = await client.get('/api/statistics/')
+  return response.data
+}
+
