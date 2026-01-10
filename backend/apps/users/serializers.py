@@ -6,10 +6,17 @@ from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
     """User serializer for profile display."""
+    full_name = serializers.SerializerMethodField()
+    
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'created_at')
+        fields = ('id', 'email', 'first_name', 'last_name', 'full_name', 'country', 'gender', 'is_active', 'created_at')
         read_only_fields = ('id', 'is_active', 'created_at')
+    
+    def get_full_name(self, obj):
+        """Return full name combining first and last name."""
+        parts = [obj.first_name, obj.last_name]
+        return ' '.join(filter(None, parts)) or None
 
 
 class SignupSerializer(serializers.ModelSerializer):
@@ -19,7 +26,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'password_confirm', 'first_name', 'last_name')
+        fields = ('email', 'password', 'password_confirm', 'first_name', 'last_name', 'country', 'gender')
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password_confirm']:
@@ -33,6 +40,8 @@ class SignupSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             first_name=validated_data.get('first_name', ''),
             last_name=validated_data.get('last_name', ''),
+            country=validated_data.get('country', ''),
+            gender=validated_data.get('gender', ''),
             is_active=False  # Requires admin approval
         )
         return user

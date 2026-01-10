@@ -10,6 +10,8 @@ const Signup = () => {
     password_confirm: '',
     first_name: '',
     last_name: '',
+    country: '',
+    gender: '',
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -147,6 +149,40 @@ const Signup = () => {
                 className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
                 placeholder="••••••••"
               />
+            </div>
+
+            <div>
+              <label htmlFor="country" className="block text-sm font-medium text-za-ink mb-2">
+                Country
+              </label>
+              <input
+                type="text"
+                id="country"
+                required
+                value={formData.country}
+                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
+                placeholder="Enter your country"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="gender" className="block text-sm font-medium text-za-ink mb-2">
+                Gender
+              </label>
+              <select
+                id="gender"
+                required
+                value={formData.gender}
+                onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                className="w-full px-4 py-3 border border-za-line rounded-lg focus:ring-2 focus:ring-za-emerald focus:border-transparent bg-white text-za-ink text-sm sm:text-base"
+              >
+                <option value="">Select gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+                <option value="P">Prefer not to say</option>
+              </select>
             </div>
 
             <button

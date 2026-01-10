@@ -13,3 +13,8 @@ export const getFounders = async () => {
 export const getTeamMates = async () => {
   return getTeamMembers('team')
 }
+
+export const getChallenges = async () => {
+  const response = await client.get('/api/challenges/')
+  return response.data
+}

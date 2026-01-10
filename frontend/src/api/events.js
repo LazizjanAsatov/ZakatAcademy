@@ -1,7 +1,7 @@
 import client from './client'
 
-export const getEvents = async () => {
-  const response = await client.get('/api/events/')
+export const getEvents = async (page = 1) => {
+  const response = await client.get(`/api/events/?page=${page}`)
   return response.data
 }
 

@@ -1,7 +1,7 @@
 import client from './client'
 
-export const getCourses = async () => {
-  const response = await client.get('/api/courses/')
+export const getCourses = async (page = 1) => {
+  const response = await client.get(`/api/courses/?page=${page}`)
   return response.data
 }
 

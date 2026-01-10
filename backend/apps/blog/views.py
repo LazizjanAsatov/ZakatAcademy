@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from .models import BlogPost
 from .serializers import BlogPostListSerializer, BlogPostDetailSerializer
+from .pagination import BlogPagination
 
 
 class BlogPostViewSet(viewsets.ReadOnlyModelViewSet):
@@ -9,6 +10,7 @@ class BlogPostViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = BlogPost.objects.filter(is_published=True)
     permission_classes = [AllowAny]
     lookup_field = 'slug'
+    pagination_class = BlogPagination
 
     def get_serializer_class(self):
         if self.action == 'retrieve':

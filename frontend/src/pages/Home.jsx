@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { getCourses, getStatistics } from '../api/courses'
 import { getFeaturedBlogPosts } from '../api/blog'
 import { getFAQs } from '../api/faq'
+import { getChallenges } from '../api/about'
 import CourseCard from '../components/CourseCard'
 import FAQAccordion from '../components/FAQAccordion'
 import AnimatedStatistic from '../components/AnimatedStatistic'
@@ -11,6 +12,7 @@ const Home = () => {
   const [featuredCourses, setFeaturedCourses] = useState([])
   const [featuredPosts, setFeaturedPosts] = useState([])
   const [faqs, setFaqs] = useState([])
+  const [challenges, setChallenges] = useState([])
   const [statistics, setStatistics] = useState({
     active_learners: 0,
     courses: 0,
@@ -20,6 +22,7 @@ const Home = () => {
   const [blogLoading, setBlogLoading] = useState(true)
   const [faqLoading, setFaqLoading] = useState(true)
   const [statsLoading, setStatsLoading] = useState(true)
+  const [challengesLoading, setChallengesLoading] = useState(true)
 
   useEffect(() => {
     const loadCourses = async () => {
@@ -84,6 +87,20 @@ const Home = () => {
     loadStatistics()
   }, [])
 
+  useEffect(() => {
+    const loadChallenges = async () => {
+      try {
+        const data = await getChallenges()
+        setChallenges(data)
+      } catch (error) {
+        console.error('Failed to load challenges:', error)
+      } finally {
+        setChallengesLoading(false)
+      }
+    }
+    loadChallenges()
+  }, [])
+
   return (
     <div>
       {/* Hero Section */}
@@ -135,83 +152,81 @@ const Home = () => {
       </section>
 
       {/* Problems Section */}
-      <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-za-ivory overflow-hidden">
-        {/* Background illustration - Islamic architecture */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute right-0 bottom-0 w-full h-full bg-gradient-to-t from-za-emerald/10 to-transparent"></div>
+      <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-za-ivory to-white overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-za-emerald rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-za-gold rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Title */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-za-emerald text-center mb-12 sm:mb-16 md:mb-20 max-w-4xl mx-auto px-4 text-balance">
-            Zakat Academy gives women the knowledge to control their money — in a halal way.
-          </h2>
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-za-emerald mb-4 max-w-4xl mx-auto px-4 text-balance leading-tight">
+              Zakat Academy gives women the knowledge to control their money — in a halal way.
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-za-emerald/20 via-za-emerald to-za-emerald/20 mx-auto rounded-full"></div>
+          </div>
 
-          {/* Three Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
-            {/* Card 1: No Access */}
-            <div className="flex flex-col items-center transform hover:-translate-y-1 transition-all duration-300">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mb-5 sm:mb-6">
-                <div className="w-full h-full rounded-full bg-za-beige flex items-center justify-center relative overflow-hidden shadow-soft">
-                  {/* Woman icon placeholder */}
-                  <svg className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-za-emerald/70" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                  </svg>
-                  {/* Forbidden icon overlay */}
-                  <div className="absolute bottom-1 left-1 sm:bottom-2 sm:left-2 w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-za-emerald rounded-full flex items-center justify-center shadow-md">
-                    <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </div>
+          {/* Challenges Cards */}
+          {challengesLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex flex-col items-center animate-pulse">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-za-beige mb-6"></div>
+                  <div className="w-full max-w-[300px] h-24 bg-white rounded-2xl"></div>
                 </div>
-              </div>
-              <div className="bg-white rounded-2xl px-5 sm:px-6 py-4 sm:py-5 shadow-soft border border-za-line text-center w-full max-w-[280px]">
-                <p className="text-base sm:text-lg font-semibold text-za-ink font-body">No access to Islamic finance</p>
-              </div>
+              ))}
             </div>
-
-            {/* Card 2: Confusion */}
-            <div className="flex flex-col items-center transform hover:-translate-y-1 transition-all duration-300">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mb-5 sm:mb-6">
-                <div className="w-full h-full rounded-full bg-za-emerald flex items-center justify-center relative overflow-hidden shadow-soft">
-                  {/* Woman icon with question mark */}
-                  <div className="relative">
-                    <svg className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-white/90" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                    {/* Question mark */}
-                    <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-7 h-7 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center shadow-md">
-                      <span className="text-za-emerald font-bold text-lg sm:text-xl">?</span>
+          ) : challenges.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+              {challenges.map((challenge) => {
+                return (
+                  <div 
+                    key={challenge.id} 
+                    className="flex flex-col items-center group transform hover:-translate-y-2 transition-all duration-300"
+                  >
+                    <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 mb-6 sm:mb-7 md:mb-8">
+                      {challenge.photo_url ? (
+                        <div className="w-full h-full rounded-full overflow-hidden shadow-xl border-4 border-white group-hover:border-za-emerald/30 transition-all duration-300 group-hover:shadow-2xl">
+                          <img
+                            src={challenge.photo_url}
+                            alt={challenge.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            onError={(e) => {
+                              // Fallback to placeholder if image fails to load
+                              e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23f5f5f7" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23006666" font-size="20"%3EImage%3C/text%3E%3C/svg%3E'
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        // Fallback to icon if no photo_url is provided
+                        <div className="w-full h-full rounded-full bg-gradient-to-br from-za-beige to-za-beige/80 flex items-center justify-center relative overflow-hidden shadow-lg border-2 border-za-emerald/10">
+                          <svg className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-za-emerald/70" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                    <div className="bg-white rounded-2xl px-6 sm:px-7 md:px-8 py-5 sm:py-6 shadow-lg border border-za-line/50 text-center w-full max-w-[300px] group-hover:shadow-xl transition-all duration-300 group-hover:border-za-emerald/30">
+                      <p className="text-base sm:text-lg md:text-xl font-semibold text-za-ink font-body leading-tight">
+                        {challenge.title}
+                      </p>
+                      {challenge.description && (
+                        <p className="mt-3 text-sm text-za-slate leading-relaxed">
+                          {challenge.description}
+                        </p>
+                      )}
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-2xl px-5 sm:px-6 py-4 sm:py-5 shadow-soft border border-za-line text-center w-full max-w-[280px]">
-                <p className="text-base sm:text-lg font-semibold text-za-ink font-body">Confusion about halal income</p>
-              </div>
+                )
+              })}
             </div>
-
-            {/* Card 3: Dependence */}
-            <div className="flex flex-col items-center sm:col-span-2 lg:col-span-1 transform hover:-translate-y-1 transition-all duration-300">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mb-5 sm:mb-6">
-                <div className="w-full h-full rounded-full bg-za-beige flex items-center justify-center relative overflow-hidden shadow-soft">
-                  {/* Woman icon */}
-                  <svg className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-za-emerald/70" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                  </svg>
-                  {/* Dependency icon overlay */}
-                  <div className="absolute bottom-1 left-1 sm:bottom-2 sm:left-2 w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-za-emerald" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-2xl px-5 sm:px-6 py-4 sm:py-5 shadow-soft border border-za-line text-center w-full max-w-[280px]">
-                <p className="text-base sm:text-lg font-semibold text-za-ink font-body">Dependence on others</p>
-              </div>
+          ) : (
+            <div className="text-center text-za-slate py-12">
+              <p className="text-lg">No challenges available yet.</p>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

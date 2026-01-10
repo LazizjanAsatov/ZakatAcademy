@@ -123,7 +123,7 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-za-ink mb-12 text-center">
               Our Founders
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className={`grid grid-cols-1 md:grid-cols-2 ${founders.length === 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' : 'lg:grid-cols-3'} gap-8`}>
               {founders.map((founder) => (
                 <TeamMemberCard key={founder.id} member={founder} />
               ))}
@@ -139,7 +139,7 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-za-ink mb-12 text-center">
               Our Team
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className={`grid grid-cols-1 md:grid-cols-2 ${teamMembers.length === 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' : 'lg:grid-cols-3'} gap-8`}>
               {teamMembers.map((member) => (
                 <TeamMemberCard key={member.id} member={member} />
               ))}

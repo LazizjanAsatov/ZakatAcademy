@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TeamMember, Event
+from .models import TeamMember, Event, Challenge
 
 
 @admin.register(TeamMember)
@@ -42,6 +42,27 @@ class EventAdmin(admin.ModelAdmin):
         }),
         ('Display Settings', {
             'fields': ('is_published',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+
+
+@admin.register(Challenge)
+class ChallengeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'photo_url', 'icon_type', 'order', 'is_published', 'created_at')
+    list_filter = ('icon_type', 'is_published', 'created_at')
+    search_fields = ('title', 'description')
+    ordering = ('order', 'created_at')
+    readonly_fields = ('created_at', 'updated_at')
+    fieldsets = (
+        ('Challenge Information', {
+            'fields': ('title', 'description', 'photo_url', 'icon_type')
+        }),
+        ('Display Settings', {
+            'fields': ('order', 'is_published')
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),

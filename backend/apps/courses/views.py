@@ -10,6 +10,7 @@ from .serializers import (
     EnrollmentSerializer, LessonProgressSerializer, FAQSerializer, SocialMediaLinkSerializer,
     StatisticsSerializer
 )
+from .pagination import CoursePagination
 
 User = get_user_model()
 
@@ -18,6 +19,7 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
     """ViewSet for public course endpoints."""
     queryset = Course.objects.filter(is_published=True)
     lookup_field = 'slug'
+    pagination_class = CoursePagination
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
@@ -51,7 +53,7 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
                 enrollment.save()
 
         return Response(
-            {'message': 'Successfully enrolled in course.', 'enrollment': EnrollmentSerializer(enrollment).data},
+            {'message': 'Successfully enrolled in course.', 'enrollment': EnrollmentSerializer(enrollment, context={'request': request}).data},
             status=status.HTTP_201_CREATED
         )
 
@@ -61,7 +63,7 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
 def my_courses(request):
     """Get list of enrolled courses for authenticated user."""
     enrollments = Enrollment.objects.filter(user=request.user, status='active').select_related('course')
-    serializer = EnrollmentSerializer(enrollments, many=True)
+    serializer = EnrollmentSerializer(enrollments, many=True, context={'request': request})
     return Response(serializer.data)
 
 

@@ -70,10 +70,49 @@ class CoursePlayerSerializer(serializers.ModelSerializer):
 class EnrollmentSerializer(serializers.ModelSerializer):
     """Enrollment serializer."""
     course = CourseListSerializer(read_only=True)
+    progress_percentage = serializers.SerializerMethodField()
+    completed_lessons = serializers.SerializerMethodField()
+    total_lessons = serializers.SerializerMethodField()
 
     class Meta:
         model = Enrollment
-        fields = ('id', 'course', 'status', 'created_at')
+        fields = ('id', 'course', 'status', 'created_at', 'progress_percentage', 'completed_lessons', 'total_lessons')
+
+    def get_progress_percentage(self, obj):
+        """Calculate course progress percentage."""
+        user = self.context.get('request').user if self.context.get('request') else None
+        if not user:
+            return 0
+        
+        # Get all lessons in the course
+        total_lessons = Lesson.objects.filter(module__course=obj.course).count()
+        if total_lessons == 0:
+            return 0
+        
+        # Get completed lessons
+        completed_lessons = LessonProgress.objects.filter(
+            user=user,
+            lesson__module__course=obj.course,
+            completed=True
+        ).count()
+        
+        return round((completed_lessons / total_lessons) * 100, 1)
+
+    def get_completed_lessons(self, obj):
+        """Get number of completed lessons."""
+        user = self.context.get('request').user if self.context.get('request') else None
+        if not user:
+            return 0
+        
+        return LessonProgress.objects.filter(
+            user=user,
+            lesson__module__course=obj.course,
+            completed=True
+        ).count()
+
+    def get_total_lessons(self, obj):
+        """Get total number of lessons in the course."""
+        return Lesson.objects.filter(module__course=obj.course).count()
 
 
 class LessonProgressSerializer(serializers.ModelSerializer):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import TeamMember, Event
+from .models import TeamMember, Event, Challenge
 
 
 class TeamMemberSerializer(serializers.ModelSerializer):
@@ -23,4 +23,16 @@ class EventSerializer(serializers.ModelSerializer):
             'id', 'title', 'description', 'location', 'event_date', 
             'image_url', 'registration_url', 'is_published', 
             'created_at', 'updated_at'
+        )
+
+
+class ChallengeSerializer(serializers.ModelSerializer):
+    """Challenge serializer."""
+    icon_type_display = serializers.CharField(source='get_icon_type_display', read_only=True)
+    
+    class Meta:
+        model = Challenge
+        fields = (
+            'id', 'title', 'description', 'photo_url', 'icon_type', 'icon_type_display',
+            'order', 'is_published', 'created_at', 'updated_at'
         )

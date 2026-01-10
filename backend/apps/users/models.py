@@ -38,10 +38,19 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     """Custom user model with email as username."""
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+        ('P', 'Prefer not to say'),
+    ]
+    
     username = None
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

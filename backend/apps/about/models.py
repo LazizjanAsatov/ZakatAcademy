@@ -51,3 +51,30 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Challenge(models.Model):
+    """Model for challenges/problems that women face (shown on home page)."""
+    ICON_TYPE_CHOICES = [
+        ('no_access', 'No Access (X icon)'),
+        ('confusion', 'Confusion (Question mark)'),
+        ('dependence', 'Dependence (People icon)'),
+    ]
+
+    title = models.CharField(max_length=200, help_text="Challenge title (e.g., 'No access to Islamic finance')")
+    description = models.TextField(blank=True, help_text="Optional description")
+    photo_url = models.URLField(blank=True, null=True, help_text="URL to challenge photo/image")
+    icon_type = models.CharField(max_length=50, choices=ICON_TYPE_CHOICES, blank=True, help_text="Icon style to display (optional if photo_url is provided)")
+    order = models.PositiveIntegerField(default=0, help_text="Order in which challenge appears (lower numbers first)")
+    is_published = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order', 'created_at']
+        db_table = 'challenges'
+        verbose_name = 'Challenge'
+        verbose_name_plural = 'Challenges'
+
+    def __str__(self):
+        return self.title
