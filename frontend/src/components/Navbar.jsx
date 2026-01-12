@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 const Navbar = () => {
@@ -19,6 +20,7 @@ const Navbar = () => {
   }
 
   return (
+    <>
     <nav className="sticky top-0 z-50 bg-za-ivory/95 backdrop-blur-sm border-b border-za-line shadow-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
@@ -214,57 +216,60 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Download App Modal */}
-      {downloadModalOpen && (
+    </nav>
+    
+    {/* Download App Modal - Rendered via Portal */}
+    {downloadModalOpen && createPortal(
+      <div 
+        className="fixed top-0 left-0 w-full h-full bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
+        onClick={() => setDownloadModalOpen(false)}
+      >
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 transition-opacity duration-200"
-          onClick={() => setDownloadModalOpen(false)}
+          className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 sm:p-8 transform transition-all duration-200"
+          onClick={(e) => e.stopPropagation()}
         >
-          <div 
-            className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 sm:p-8 transform transition-all duration-200 scale-100"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-heading font-bold text-za-emerald">
-                Download App
-              </h3>
-              <button
-                onClick={() => setDownloadModalOpen(false)}
-                className="text-za-slate-dark hover:text-za-emerald transition-colors p-1 rounded-full hover:bg-za-emerald/10"
-                aria-label="Close modal"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
-            <div className="mb-6">
-              <div className="flex items-center justify-center mb-5">
-                <div className="bg-za-emerald/10 rounded-full p-4 sm:p-5">
-                  <svg className="w-12 h-12 sm:w-14 sm:h-14 text-za-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-za-slate-dark text-center text-lg sm:text-xl font-body font-medium mb-2">
-                The app is currently in the process of development.
-              </p>
-              <p className="text-za-slate-dark/70 text-center text-base sm:text-lg font-body">
-                We'll notify you as soon as it's available for download!
-              </p>
-            </div>
-
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-2xl font-heading font-bold text-za-emerald">
+              Download App
+            </h3>
             <button
               onClick={() => setDownloadModalOpen(false)}
-              className="w-full px-6 py-3 bg-za-emerald text-white rounded-full hover:bg-za-emerald-dark transition-all font-body font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-za-emerald focus:ring-offset-2"
+              className="text-za-slate-dark hover:text-za-emerald transition-colors p-1 rounded-full hover:bg-za-emerald/10"
+              aria-label="Close modal"
             >
-              Got it
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
           </div>
+          
+          <div className="mb-6">
+            <div className="flex items-center justify-center mb-5">
+              <div className="bg-za-emerald/10 rounded-full p-4 sm:p-5">
+                <svg className="w-12 h-12 sm:w-14 sm:h-14 text-za-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-za-slate-dark text-center text-lg sm:text-xl font-body font-medium mb-2">
+              The app is currently in the process of development.
+            </p>
+            <p className="text-za-slate-dark/70 text-center text-base sm:text-lg font-body">
+              We'll notify you as soon as it's available for download!
+            </p>
+          </div>
+
+          <button
+            onClick={() => setDownloadModalOpen(false)}
+            className="w-full px-6 py-3 bg-za-emerald text-white rounded-full hover:bg-za-emerald-dark transition-all font-body font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-za-emerald focus:ring-offset-2"
+          >
+            Got it
+          </button>
         </div>
-      )}
-    </nav>
+      </div>,
+      document.body
+    )}
+    </>
   )
 }
 

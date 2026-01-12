@@ -19,11 +19,7 @@ const Login = () => {
     if (result.success) {
       navigate('/app')
     } else {
-      if (result.error?.includes('pending approval')) {
-        navigate('/pending-approval')
-      } else {
-        setError(result.error || 'Login failed. Please try again.')
-      }
+      setError(result.error || 'Login failed. Please try again.')
     }
     
     setLoading(false)
@@ -89,7 +85,7 @@ const Login = () => {
           <div className="mt-6 text-center text-sm text-za-slate">
             Don't have an account?{' '}
             <Link to="/signup" className="text-za-emerald hover:text-za-emerald-dark hover:underline font-medium transition-colors">
-              Request Access
+              Sign Up
             </Link>
           </div>
         </div>

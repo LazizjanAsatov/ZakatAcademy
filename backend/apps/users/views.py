@@ -12,13 +12,13 @@ User = get_user_model()
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def signup(request):
-    """Create a new user account (pending approval)."""
+    """Create a new user account."""
     serializer = SignupSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
         return Response(
             {
-                'message': 'Account created successfully. Your request is pending approval.',
+                'message': 'Account created successfully. You can now log in.',
                 'user': UserSerializer(user).data
             },
             status=status.HTTP_201_CREATED
@@ -29,7 +29,7 @@ def signup(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
-    """Login and return JWT tokens (only if user is approved)."""
+    """Login and return JWT tokens."""
     serializer = LoginSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.validated_data['user']

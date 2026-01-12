@@ -77,9 +77,9 @@ const Profile = () => {
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       user?.is_active
                         ? 'bg-za-emerald/10 text-za-emerald'
-                        : 'bg-za-gold/20 text-za-gold'
+                        : 'bg-za-error/10 text-za-error'
                     }`}>
-                      {user?.is_active ? 'Active' : 'Pending Approval'}
+                      {user?.is_active ? 'Active' : 'Inactive'}
                     </span>
                   </div>
                 </div>

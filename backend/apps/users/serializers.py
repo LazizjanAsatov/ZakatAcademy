@@ -42,7 +42,7 @@ class SignupSerializer(serializers.ModelSerializer):
             last_name=validated_data.get('last_name', ''),
             country=validated_data.get('country', ''),
             gender=validated_data.get('gender', ''),
-            is_active=False  # Requires admin approval
+            is_active=True  # Users can log in immediately after registration
         )
         return user
 
@@ -61,7 +61,7 @@ class LoginSerializer(serializers.Serializer):
             if not user:
                 raise serializers.ValidationError('Invalid email or password.')
             if not user.is_active:
-                raise serializers.ValidationError('Account pending approval. Please wait for admin approval.')
+                raise serializers.ValidationError('Account is inactive. Please contact support.')
             attrs['user'] = user
         else:
             raise serializers.ValidationError('Must include "email" and "password".')

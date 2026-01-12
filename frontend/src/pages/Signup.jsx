@@ -26,7 +26,7 @@ const Signup = () => {
       await signup(formData)
       setSuccess(true)
       setTimeout(() => {
-        navigate('/pending-approval')
+        navigate('/login')
       }, 2000)
     } catch (err) {
       const errorMessage = err.response?.data?.email?.[0] || 
@@ -50,10 +50,10 @@ const Signup = () => {
               </svg>
             </div>
             <h2 className="text-xl sm:text-2xl font-heading font-bold text-za-ink mb-2">
-              Request Submitted!
+              Account Created!
             </h2>
             <p className="text-za-slate text-sm sm:text-base">
-              Your account request has been submitted. Redirecting...
+              Your account has been created successfully. Redirecting to login...
             </p>
           </div>
         </div>
@@ -66,10 +66,10 @@ const Signup = () => {
       <div className="max-w-md w-full mx-auto px-4 sm:px-6">
         <div className="bg-za-ivory rounded-2xl shadow-soft border border-za-line p-6 sm:p-8">
           <h1 className="text-2xl sm:text-3xl font-heading font-bold text-za-ink mb-2">
-            Request Access
+            Create Account
           </h1>
           <p className="text-za-slate mb-6 sm:mb-8 text-sm sm:text-base">
-            Sign up to request access to Zakat Academy courses. Your account will be reviewed by our admin team.
+            Sign up to access Zakat Academy courses and start learning today.
           </p>
 
           {error && (
@@ -190,7 +190,7 @@ const Signup = () => {
               disabled={loading}
               className="w-full px-6 py-3 bg-za-emerald text-white rounded-full hover:bg-za-emerald-dark transition-all font-semibold disabled:opacity-50 shadow-md hover:shadow-lg disabled:shadow-md disabled:hover:shadow-md"
             >
-              {loading ? 'Submitting...' : 'Request Access'}
+              {loading ? 'Creating Account...' : 'Sign Up'}
             </button>
           </form>
 

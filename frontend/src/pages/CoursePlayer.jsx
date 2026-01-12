@@ -83,14 +83,14 @@ const CoursePlayer = () => {
   }
 
   return (
-    <div className="flex h-screen bg-za-sand">
+    <div className="fixed inset-0 flex bg-za-sand z-50">
       {/* Sidebar */}
       <div
         className={`${
           sidebarOpen ? 'w-80' : 'w-0'
-        } bg-za-ivory border-r border-za-line transition-all duration-300 overflow-hidden flex-shrink-0`}
+        } bg-za-ivory border-r border-za-line transition-all duration-300 overflow-hidden flex-shrink-0 flex flex-col`}
       >
-        <div className="p-4 border-b border-za-line">
+        <div className="p-4 border-b border-za-line flex-shrink-0">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-heading font-semibold text-za-ink">
               {course.title}
@@ -105,7 +105,7 @@ const CoursePlayer = () => {
             </button>
           </div>
         </div>
-        <div className="overflow-y-auto h-full pb-20">
+        <div className="overflow-y-auto flex-1 pb-20">
           {course.modules?.map((module) => (
             <div key={module.id} className="p-4">
               <h3 className="font-semibold text-za-ink mb-2">{module.title}</h3>
