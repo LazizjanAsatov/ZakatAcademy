@@ -152,7 +152,7 @@ const Home = () => {
       </section>
 
       {/* Problems Section */}
-      <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-za-ivory to-white overflow-hidden">
+      <section className="relative py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-za-ivory to-white overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute inset-0 opacity-[0.03]">
           <div className="absolute top-0 right-0 w-96 h-96 bg-za-emerald rounded-full blur-3xl"></div>
@@ -160,35 +160,39 @@ const Home = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Title */}
-          <div className="text-center mb-12 sm:mb-16 md:mb-20">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-za-emerald mb-4 max-w-4xl mx-auto px-4 text-balance leading-tight">
-              Zakat Academy gives women the knowledge to control their money — in a halal way.
+          {/* Section Header */}
+          <div className="text-center mb-14 sm:mb-16 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-za-emerald mb-5 sm:mb-6 max-w-4xl mx-auto px-4 text-balance leading-tight">
+              Empowering Financial Independence
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-za-emerald/20 via-za-emerald to-za-emerald/20 mx-auto rounded-full"></div>
+            <p className="text-lg sm:text-xl md:text-2xl text-za-slate max-w-3xl mx-auto px-4 leading-relaxed mb-6">
+              Zakat Academy gives women the knowledge to control their money — in a halal way.
+            </p>
+            <div className="w-32 h-1 bg-gradient-to-r from-za-emerald/20 via-za-emerald to-za-emerald/20 mx-auto rounded-full"></div>
           </div>
 
           {/* Challenges Cards */}
           {challengesLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex flex-col items-center animate-pulse">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-za-beige mb-6"></div>
-                  <div className="w-full max-w-[300px] h-24 bg-white rounded-2xl"></div>
+                  <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full bg-za-beige mb-6"></div>
+                  <div className="w-full max-w-[320px] h-32 bg-white rounded-2xl"></div>
                 </div>
               ))}
             </div>
           ) : challenges.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
               {challenges.map((challenge) => {
                 return (
                   <div 
                     key={challenge.id} 
-                    className="flex flex-col items-center group transform hover:-translate-y-2 transition-all duration-300"
+                    className="flex flex-col items-center group"
                   >
-                    <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 mb-6 sm:mb-7 md:mb-8">
+                    {/* Image Container */}
+                    <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mb-6 sm:mb-7 md:mb-8">
                       {challenge.photo_url ? (
-                        <div className="w-full h-full rounded-full overflow-hidden shadow-xl border-4 border-white group-hover:border-za-emerald/30 transition-all duration-300 group-hover:shadow-2xl">
+                        <div className="w-full h-full rounded-full overflow-hidden shadow-xl border-4 border-white group-hover:border-za-emerald/40 transition-all duration-300 group-hover:shadow-2xl transform group-hover:scale-105">
                           <img
                             src={challenge.photo_url}
                             alt={challenge.title}
@@ -201,19 +205,21 @@ const Home = () => {
                         </div>
                       ) : (
                         // Fallback to icon if no photo_url is provided
-                        <div className="w-full h-full rounded-full bg-gradient-to-br from-za-beige to-za-beige/80 flex items-center justify-center relative overflow-hidden shadow-lg border-2 border-za-emerald/10">
-                          <svg className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-za-emerald/70" fill="currentColor" viewBox="0 0 24 24">
+                        <div className="w-full h-full rounded-full bg-gradient-to-br from-za-emerald/10 via-za-beige to-za-beige/80 flex items-center justify-center relative overflow-hidden shadow-lg border-4 border-white group-hover:border-za-emerald/30 transition-all duration-300 group-hover:shadow-xl">
+                          <svg className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-za-emerald/70 group-hover:text-za-emerald transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                           </svg>
                         </div>
                       )}
                     </div>
-                    <div className="bg-white rounded-2xl px-6 sm:px-7 md:px-8 py-5 sm:py-6 shadow-lg border border-za-line/50 text-center w-full max-w-[300px] group-hover:shadow-xl transition-all duration-300 group-hover:border-za-emerald/30">
-                      <p className="text-base sm:text-lg md:text-xl font-semibold text-za-ink font-body leading-tight">
+                    
+                    {/* Card Content */}
+                    <div className="bg-white rounded-2xl px-6 sm:px-7 md:px-8 py-6 sm:py-7 md:py-8 shadow-lg border border-za-line/50 text-center w-full max-w-[320px] group-hover:shadow-xl group-hover:border-za-emerald/40 transition-all duration-300 transform group-hover:-translate-y-1">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-za-emerald mb-3 leading-tight">
                         {challenge.title}
-                      </p>
+                      </h3>
                       {challenge.description && (
-                        <p className="mt-3 text-sm text-za-slate leading-relaxed">
+                        <p className="text-sm sm:text-base text-za-slate leading-relaxed">
                           {challenge.description}
                         </p>
                       )}

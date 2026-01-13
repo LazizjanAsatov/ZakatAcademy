@@ -9,9 +9,18 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [downloadModalOpen, setDownloadModalOpen] = useState(false)
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+
   const handleLogout = async () => {
     await logout()
     navigate('/')
+    scrollToTop()
   }
 
   const handleDownloadApp = () => {
@@ -25,7 +34,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo and Brand Name */}
-          <Link to="/" className="flex items-center gap-2 md:gap-3 flex-shrink-0 hover:opacity-90 transition-opacity">
+          <Link 
+            to="/" 
+            onClick={scrollToTop}
+            className="flex items-center gap-2 md:gap-3 flex-shrink-0 hover:opacity-90 transition-opacity"
+          >
             <img 
               src="/ZakatAcademy.png" 
               alt="Zakat Academy Logo" 
@@ -40,36 +53,42 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             <Link 
               to="/" 
+              onClick={scrollToTop}
               className="text-za-slate-dark hover:text-za-emerald transition-colors font-body font-medium text-sm xl:text-base px-2 py-1"
             >
               Home
             </Link>
             <Link 
               to="/about" 
+              onClick={scrollToTop}
               className="text-za-slate-dark hover:text-za-emerald transition-colors font-body font-medium text-sm xl:text-base px-2 py-1"
             >
               About
             </Link>
             <Link 
               to="/courses" 
+              onClick={scrollToTop}
               className="text-za-slate-dark hover:text-za-emerald transition-colors font-body font-medium text-sm xl:text-base px-2 py-1"
             >
               Courses
             </Link>
             <Link 
               to="/blog" 
+              onClick={scrollToTop}
               className="text-za-slate-dark hover:text-za-emerald transition-colors font-body font-medium text-sm xl:text-base px-2 py-1"
             >
               Blog
             </Link>
             <Link 
               to="/faq" 
+              onClick={scrollToTop}
               className="text-za-slate-dark hover:text-za-emerald transition-colors font-body font-medium text-sm xl:text-base px-2 py-1"
             >
               FAQ
             </Link>
             <Link 
               to="/events" 
+              onClick={scrollToTop}
               className="text-za-slate-dark hover:text-za-emerald transition-colors font-body font-medium text-sm xl:text-base px-2 py-1"
             >
               Events
@@ -88,6 +107,7 @@ const Navbar = () => {
               <>
                 <Link
                   to="/app/profile"
+                  onClick={scrollToTop}
                   className="px-4 xl:px-5 py-2 bg-za-emerald text-white rounded-full hover:bg-za-emerald-dark transition-all font-body font-medium text-sm shadow-sm hover:shadow-md flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,6 +125,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
+                onClick={scrollToTop}
                 className="px-4 xl:px-5 py-2 bg-za-beige text-za-ink rounded-full hover:bg-za-beige-light transition-all font-body font-medium text-sm border border-za-line"
               >
                 Log in
@@ -134,42 +155,60 @@ const Navbar = () => {
             <Link 
               to="/" 
               className="block text-za-slate-dark hover:text-za-emerald hover:bg-za-emerald/5 transition-colors font-body font-medium py-3 px-4 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false)
+                scrollToTop()
+              }}
             >
               Home
             </Link>
             <Link 
               to="/about" 
               className="block text-za-slate-dark hover:text-za-emerald hover:bg-za-emerald/5 transition-colors font-body font-medium py-3 px-4 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false)
+                scrollToTop()
+              }}
             >
               About
             </Link>
             <Link 
               to="/courses" 
               className="block text-za-slate-dark hover:text-za-emerald hover:bg-za-emerald/5 transition-colors font-body font-medium py-3 px-4 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false)
+                scrollToTop()
+              }}
             >
               Courses
             </Link>
             <Link 
               to="/blog" 
               className="block text-za-slate-dark hover:text-za-emerald hover:bg-za-emerald/5 transition-colors font-body font-medium py-3 px-4 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false)
+                scrollToTop()
+              }}
             >
               Blog
             </Link>
             <Link 
               to="/faq" 
               className="block text-za-slate-dark hover:text-za-emerald hover:bg-za-emerald/5 transition-colors font-body font-medium py-3 px-4 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false)
+                scrollToTop()
+              }}
             >
               FAQ
             </Link>
             <Link 
               to="/events" 
               className="block text-za-slate-dark hover:text-za-emerald hover:bg-za-emerald/5 transition-colors font-body font-medium py-3 px-4 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false)
+                scrollToTop()
+              }}
             >
               Events
             </Link>
@@ -185,7 +224,10 @@ const Navbar = () => {
                   <Link
                     to="/app/profile"
                     className="block w-full text-center px-5 py-3 bg-za-emerald text-white rounded-full hover:bg-za-emerald-dark transition-all font-body font-medium shadow-sm flex items-center justify-center gap-2"
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => {
+                      setMobileMenuOpen(false)
+                      scrollToTop()
+                    }}
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -206,7 +248,10 @@ const Navbar = () => {
                 <Link
                   to="/login"
                   className="block w-full text-center px-5 py-3 bg-za-beige text-za-ink rounded-full hover:bg-za-beige-light transition-all font-body font-medium border border-za-line"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    scrollToTop()
+                  }}
                 >
                   Log in
                 </Link>

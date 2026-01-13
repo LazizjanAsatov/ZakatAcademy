@@ -6,6 +6,14 @@ const Footer = () => {
   const [socialLinks, setSocialLinks] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+
   useEffect(() => {
     const loadSocialLinks = async () => {
       try {
@@ -21,7 +29,7 @@ const Footer = () => {
   }, [])
 
   const getSocialIcon = (platform) => {
-    const iconClasses = "w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0"
+    const iconClasses = "w-4 h-4 flex-shrink-0"
     const icons = {
       facebook: (
         <svg className={iconClasses} fill="currentColor" viewBox="0 0 24 24">
@@ -72,42 +80,69 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-za-emerald text-white py-12 sm:py-14 md:py-16">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-10 lg:gap-12">
-          {/* Company Info - Takes 2 columns on large screens */}
+    <footer className="bg-za-emerald text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6 lg:gap-8 mb-8">
+          {/* Company Info - Full width on mobile, spans 2 columns on sm, 1 on lg */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-3 sm:gap-3 mb-5 sm:mb-5">
-              <img src="/ZakatAcademy.png" alt="Zakat Academy Logo" className="w-14 h-14 sm:w-12 sm:h-12 object-contain" />
-              <h3 className="text-xl sm:text-xl font-heading font-bold">Zakat Academy</h3>
+            <div className="flex items-center gap-2 mb-3">
+              <img src="/ZakatAcademy.png" alt="Zakat Academy Logo" className="w-10 h-10 object-contain" />
+              <h3 className="text-lg font-heading font-bold">Zakat Academy</h3>
             </div>
-            <p className="text-base sm:text-base opacity-90 leading-relaxed max-w-xs">
-              Learn the fundamentals of Zakat and deepen your understanding of Islamic giving.
+            <p className="text-sm opacity-85 leading-relaxed mb-4 max-w-xs">
+              Empowering Muslim women through Islamic finance education.
             </p>
+            {/* Social Media Icons */}
+            {!loading && socialLinks.length > 0 && (
+              <div className="flex flex-wrap gap-2.5 sm:gap-3">
+                {socialLinks
+                  .filter(link => 
+                    link.platform.toLowerCase() !== 'whatsapp' && 
+                    link.platform.toLowerCase() !== 'telegram'
+                  )
+                  .map((link) => (
+                    <a
+                      key={link.id}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-200 hover:scale-110"
+                      aria-label={link.platform_display || link.platform}
+                    >
+                      {getSocialIcon(link.platform)}
+                    </a>
+                  ))}
+              </div>
+            )}
           </div>
 
-          {/* Quick Links */}
+          {/* Navigation Links */}
           <div>
-            <h4 className="font-semibold mb-5 sm:mb-5 text-lg sm:text-lg">Quick Links</h4>
-            <ul className="space-y-3 sm:space-y-3 text-base sm:text-base">
+            <h4 className="font-semibold mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wide">Navigation</h4>
+            <ul className="space-y-2 sm:space-y-2.5 text-sm">
               <li>
-                <Link to="/" className="hover:text-za-beige transition-colors duration-200 block py-1.5">
+                <Link to="/" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/courses" className="hover:text-za-beige transition-colors duration-200 block py-1.5">
+                <Link to="/courses" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
                   Courses
                 </Link>
               </li>
               <li>
-                <Link to="/blog" className="hover:text-za-beige transition-colors duration-200 block py-1.5">
+                <Link to="/blog" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-za-beige transition-colors duration-200 block py-1.5">
-                  FAQ
+                <Link to="/events" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
+                  About
                 </Link>
               </li>
             </ul>
@@ -115,37 +150,60 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h4 className="font-semibold mb-5 sm:mb-5 text-lg sm:text-lg">Resources</h4>
-            <ul className="space-y-3 sm:space-y-3 text-base sm:text-base">
+            <h4 className="font-semibold mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wide">Resources</h4>
+            <ul className="space-y-2 sm:space-y-2.5 text-sm">
               <li>
-                <Link to="/courses" className="hover:text-za-beige transition-colors duration-200 block py-1.5">
-                  All Courses
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-za-beige transition-colors duration-200 block py-1.5">
+                <Link to="/faq" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
                   FAQ
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-za-beige transition-colors duration-200 block py-1.5">
+                <a href="mailto:info@zakatacademy.com" className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="mailto:support@zakatacademy.com" className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
                   Support
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info@zakatacademy.com" className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
+                  Help Center
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Legal & Contact */}
           <div>
-            <h4 className="font-semibold mb-5 sm:mb-5 text-lg sm:text-lg">Contact</h4>
-            <div className="space-y-3 sm:space-y-3 text-base sm:text-base">
-              <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 md:gap-3.5 opacity-90">
-                <svg className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0 mt-0.5 sm:mt-0" fill="currentColor" viewBox="0 0 24 24">
+            <h4 className="font-semibold mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wide">Legal</h4>
+            <ul className="space-y-2 sm:space-y-2.5 text-sm mb-4 sm:mb-5">
+              <li>
+                <Link to="/privacy-policy" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms-of-service" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link to="/cookie-policy" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200 opacity-85 hover:opacity-100 block">
+                  Cookie Policy
+                </Link>
+              </li>
+            </ul>
+            {/* Contact Methods */}
+            <div className="space-y-2 sm:space-y-2.5 text-sm">
+              <div className="flex items-start sm:items-center gap-2 opacity-85">
+                <svg className="w-4 h-4 flex-shrink-0 mt-0.5 sm:mt-0" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
                 <a 
                   href="mailto:info@zakatacademy.com" 
-                  className="hover:text-za-beige transition-colors duration-200 break-words leading-relaxed"
+                  className="hover:text-za-beige transition-colors duration-200 break-words text-xs sm:text-sm"
                 >
                   info@zakatacademy.com
                 </a>
@@ -153,30 +211,26 @@ const Footer = () => {
               {!loading && socialLinks.length > 0 && (
                 <>
                   {socialLinks.find(link => link.platform.toLowerCase() === 'whatsapp') && (
-                    <div className="flex items-center gap-2.5 sm:gap-3 md:gap-3.5">
-                      <span className="opacity-90">
-                        {getSocialIcon('whatsapp')}
-                      </span>
+                    <div className="flex items-center gap-2">
+                      {getSocialIcon('whatsapp')}
                       <a
                         href={socialLinks.find(link => link.platform.toLowerCase() === 'whatsapp').url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-za-beige transition-colors duration-200"
+                        className="hover:text-za-beige transition-colors duration-200 text-xs sm:text-sm"
                       >
                         WhatsApp
                       </a>
                     </div>
                   )}
                   {socialLinks.find(link => link.platform.toLowerCase() === 'telegram') && (
-                    <div className="flex items-center gap-2.5 sm:gap-3 md:gap-3.5">
-                      <span className="opacity-90">
-                        {getSocialIcon('telegram')}
-                      </span>
+                    <div className="flex items-center gap-2">
+                      {getSocialIcon('telegram')}
                       <a
                         href={socialLinks.find(link => link.platform.toLowerCase() === 'telegram').url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-za-beige transition-colors duration-200"
+                        className="hover:text-za-beige transition-colors duration-200 text-xs sm:text-sm"
                       >
                         Telegram
                       </a>
@@ -186,49 +240,26 @@ const Footer = () => {
               )}
             </div>
           </div>
-
-          {/* Social Media */}
-          <div>
-            <h4 className="font-semibold mb-5 sm:mb-5 text-lg sm:text-lg">Follow Us</h4>
-            {!loading && socialLinks.length > 0 ? (
-              (() => {
-                const filteredLinks = socialLinks.filter(
-                  link => link.platform.toLowerCase() !== 'whatsapp' && 
-                          link.platform.toLowerCase() !== 'telegram'
-                )
-                return filteredLinks.length > 0 ? (
-                  <div className="flex flex-col gap-3 sm:gap-3">
-                    {filteredLinks.map((link) => (
-                      <a
-                        key={link.id}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2.5 sm:gap-3 md:gap-3.5 text-white hover:text-za-beige transition-all duration-200 group"
-                        aria-label={link.platform_display}
-                      >
-                        <span className="opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-200">
-                          {getSocialIcon(link.platform)}
-                        </span>
-                        <span className="text-base">{link.platform_display || link.platform}</span>
-                      </a>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-base opacity-75">No social media links available</p>
-                )
-              })()
-            ) : (
-              <p className="text-base opacity-75">No social media links available</p>
-            )}
-          </div>
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-white/20 mt-10 sm:mt-10 pt-8 sm:pt-8 text-center">
-          <p className="text-sm sm:text-sm opacity-75">
-            &copy; {new Date().getFullYear()} Zakat Academy. All rights reserved.
-          </p>
+        <div className="border-t border-white/15 pt-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 text-xs opacity-75">
+            <p className="text-center sm:text-left">
+              &copy; {new Date().getFullYear()} Zakat Academy. All rights reserved.
+            </p>
+            <div className="flex flex-wrap justify-center sm:justify-end gap-3 sm:gap-4">
+              <Link to="/privacy-policy" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200">
+                Privacy
+              </Link>
+              <Link to="/terms-of-service" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200">
+                Terms
+              </Link>
+              <Link to="/cookie-policy" onClick={scrollToTop} className="hover:text-za-beige transition-colors duration-200">
+                Cookies
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

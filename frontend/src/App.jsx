@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import Courses from './pages/Courses'
 import CourseDetail from './pages/CourseDetail'
@@ -17,11 +18,15 @@ import BlogDetail from './pages/BlogDetail'
 import FAQ from './pages/FAQ'
 import About from './pages/About'
 import Events from './pages/Events'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
+import CookiePolicy from './pages/CookiePolicy'
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
@@ -34,6 +39,9 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/about" element={<About />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/cookie-policy" element={<CookiePolicy />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/pending-approval" element={<PendingApproval />} />
